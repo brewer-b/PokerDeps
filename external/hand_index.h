@@ -9,7 +9,15 @@ extern "C" {
 #include <stdbool.h>
 
 typedef uint64_t hand_index_t;
-typedef struct hand_indexer_s hand_indexer_t;
+typedef struct hand_indexer_t {
+  uint8_t cards_per_round[8], round_start[8];
+  uint_fast32_t rounds, configurations[8], permutations[8];
+  hand_index_t round_size[8];
+  uint_fast32_t * permutation_to_configuration[8], * permutation_to_pi[8], * configuration_to_equal[8];  
+  uint_fast32_t (* configuration[8])[4];
+  uint_fast32_t (* configuration_to_suit_size[8])[4];
+  hand_index_t * configuration_to_offset[8];
+} hand_indexer_t;
 
 /**
  * Initialize a hand indexer.  This generates a number of lookup tables and is relatively
